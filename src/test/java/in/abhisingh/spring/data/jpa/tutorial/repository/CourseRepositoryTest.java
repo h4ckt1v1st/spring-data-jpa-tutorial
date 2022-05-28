@@ -1,6 +1,8 @@
 package in.abhisingh.spring.data.jpa.tutorial.repository;
 
+
 import in.abhisingh.spring.data.jpa.tutorial.entity.Course;
+import in.abhisingh.spring.data.jpa.tutorial.entity.Student;
 import in.abhisingh.spring.data.jpa.tutorial.entity.Teacher;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,4 +89,30 @@ class CourseRepositoryTest {
 
         System.out.println("courses = " + courses);
     }
+
+    @Test
+    public void saveCourseWithStudentAndTeacher() {
+
+        Teacher teacher = Teacher.builder()
+                .firstName("plain")
+                .lastname("shield")
+                .build();
+
+        Student student = Student.builder()
+                .firstName("great")
+                .lastName("preserve")
+                .emailId("keep@gmail.com")
+                .build();
+
+        Course course = Course.builder()
+                .title("trust")
+                .credit(261)
+                .teacher(teacher)
+                .build();
+
+        course.addStudents(student);
+
+        courseRepository.save(course);
+    }
+
 }
